@@ -1,0 +1,64 @@
+# .gitignore para projeto Django + Flutter
+
+# Python/Django
+venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.sqlite3
+*.log
+*.pot
+*.pyc
+*.db
+.DS_Store
+.env
+.env.*
+*.env
+*.secret
+*.bak
+*.swp
+.idea/
+.vscode/
+
+# Django
+ifal_denuncia/staticfiles/
+ifal_denuncia/media/
+ifal_denuncia/db.sqlite3
+ifal_denuncia/field_encryption_key.txt
+ifal_denuncia/.env
+ifal_denuncia/.env.*
+
+# Flutter
+canal_denuncia_ifal/.dart_tool/
+canal_denuncia_ifal/.packages
+canal_denuncia_ifal/.flutter-plugins
+canal_denuncia_ifal/.flutter-plugins-dependencies
+canal_denuncia_ifal/.metadata
+canal_denuncia_ifal/build/
+canal_denuncia_ifal/ios/Flutter/Flutter.framework
+canal_denuncia_ifal/ios/Flutter/Flutter.podspec
+canal_denuncia_ifal/ios/Flutter/Generated.xcconfig
+canal_denuncia_ifal/ios/Flutter/app.flx
+canal_denuncia_ifal/ios/Flutter/app.zip
+canal_denuncia_ifal/ios/Flutter/flutter_assets/
+canal_denuncia_ifal/ios/ServiceDefinitions.json
+canal_denuncia_ifal/ios/Runner/GeneratedPluginRegistrant.*
+canal_denuncia_ifal/pubspec.lock
+canal_denuncia_ifal/.env
+canal_denuncia_ifal/.env.*
+
+# Outros
+*.iml
+*.ipr
+*.iws
+*.sublime-workspace
+*.sublime-project
+*.tmp
+*.bak
+*.swp
+*.swo
+*.orig
+
+# Node (caso use para build web)
+canal_denuncia_ifal/node_modules/ 
