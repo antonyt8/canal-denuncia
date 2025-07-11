@@ -16,6 +16,12 @@ class _DenunciaScreenState extends State<DenunciaScreen> {
   String envolvidos = '';
   bool enviando = false;
   String? mensagem;
+  String localizacao = '';
+  DateTime? dataHora;
+  String meio = '';
+  String consequencias = '';
+  String sugestoes = '';
+  bool desejaApoio = false;
 
   Future<void> enviarDenuncia() async {
     setState(() {
@@ -26,6 +32,12 @@ class _DenunciaScreenState extends State<DenunciaScreen> {
       descricao: descricao,
       tipo: tipo,
       envolvidos: envolvidos,
+      localizacao: localizacao,
+      dataHora: dataHora?.toIso8601String().substring(0, 10) ?? '',
+      meio: meio,
+      consequencias: consequencias,
+      sugestoes: sugestoes,
+      desejaApoio: desejaApoio,
     );
     setState(() {
       enviando = false;
@@ -55,7 +67,7 @@ class _DenunciaScreenState extends State<DenunciaScreen> {
           child: Column(
             children: [
               Text(
-                'Preencha os campos abaixo. Não é necessário se identificar.',
+                'Preencha os campos abaixo. Não é necessário se identificar. Suas informações serão tratadas com total sigilo e acolhimento. Caso deseje, você pode detalhar a situação para que possamos ajudar melhor.',
                 style: TextStyle(fontSize: 16, color: Colors.black54),
                 textAlign: TextAlign.center,
               ),
@@ -75,8 +87,73 @@ class _DenunciaScreenState extends State<DenunciaScreen> {
               ),
               SizedBox(height: 16),
               CustomTextField(
+                label: 'Localização (opcional)',
+                onSaved: (value) => localizacao = value ?? '',
+              ),
+              SizedBox(height: 16),
+              GestureDetector(
+                onTap: () async {
+                  final picked = await showDatePicker(
+                    context: context,
+                    initialDate: DateTime.now(),
+                    firstDate: DateTime(2020),
+                    lastDate: DateTime.now(),
+                  );
+                  if (picked != null) {
+                    setState(() {
+                      dataHora = picked;
+                    });
+                  }
+                },
+                child: AbsorbPointer(
+                  child: CustomTextField(
+                    label: 'Data do ocorrido (opcional)',
+                    controller: TextEditingController(
+                      text: dataHora != null ? '${dataHora!.day}/${dataHora!.month}/${dataHora!.year}' : '',
+                    ),
+                    onSaved: (_) {},
+                  ),
+                ),
+              ),
+              SizedBox(height: 16),
+              CustomTextField(
+                label: 'Meio utilizado (ex: WhatsApp, Instagram, etc) (opcional)',
+                onSaved: (value) => meio = value ?? '',
+              ),
+              SizedBox(height: 16),
+              CustomTextField(
                 label: 'Envolvidos (opcional)',
                 onSaved: (value) => envolvidos = value ?? '',
+              ),
+              SizedBox(height: 16),
+              CustomTextField(
+                label: 'Consequências/impactos (opcional)',
+                minLines: 2,
+                maxLines: 4,
+                onSaved: (value) => consequencias = value ?? '',
+              ),
+              SizedBox(height: 16),
+              CustomTextField(
+                label: 'Sugestões ou pedidos de apoio (opcional)',
+                minLines: 2,
+                maxLines: 4,
+                onSaved: (value) => sugestoes = value ?? '',
+              ),
+              SizedBox(height: 16),
+              Row(
+                children: [
+                  Checkbox(
+                    value: desejaApoio,
+                    onChanged: (value) {
+                      setState(() {
+                        desejaApoio = value ?? false;
+                      });
+                    },
+                  ),
+                  Expanded(
+                    child: Text('Desejo receber apoio psicossocial (opcional)', style: TextStyle(fontSize: 15)),
+                  ),
+                ],
               ),
               SizedBox(height: 24),
               if (mensagem != null)

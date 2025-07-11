@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../widgets/custom_button.dart';
 import 'denuncia_screen.dart';
 import 'apoio_screen.dart';
+import '../theme/app_colors.dart';
 
 class HomeScreen extends StatelessWidget {
   void _abrirDenuncia(BuildContext context) {
@@ -21,24 +22,54 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.azulCeuClaro,
       body: Center(
-        child: Padding(
+        child: SingleChildScrollView(
           padding: const EdgeInsets.all(32.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(Icons.shield_rounded, size: 80, color: Theme.of(context).colorScheme.primary),
+              // Exemplo de ilustração humanizada (adicione um asset se desejar)
+              // Image.asset('assets/images/abraco.png', height: 120, semanticLabel: 'Ilustração de acolhimento'),
+              Icon(Icons.favorite_rounded, size: 80, color: AppColors.lilasSuave),
               SizedBox(height: 24),
               Text(
-                'Bem-vindo ao Canal de Denúncia Anônima do IFAL',
-                style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
+                'Abraço Digital',
+                style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold, color: AppColors.azulProfundo),
                 textAlign: TextAlign.center,
               ),
-              SizedBox(height: 16),
+              SizedBox(height: 8),
               Text(
-                'Aqui você pode denunciar casos de cyberbullying de forma segura, anônima e acolhedora. Seu bem-estar importa!',
-                style: TextStyle(fontSize: 18, color: Colors.black54),
+                'Sua voz importa. Estamos aqui para acolher, ouvir e agir.',
+                style: TextStyle(fontSize: 18, color: AppColors.azulProfundo),
                 textAlign: TextAlign.center,
+              ),
+              SizedBox(height: 24),
+              Card(
+                color: AppColors.rosaClaro,
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                margin: EdgeInsets.symmetric(vertical: 8),
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Text(
+                    '💬 “Você não está sozinho(a).”',
+                    style: TextStyle(fontSize: 16, color: AppColors.azulProfundo, fontStyle: FontStyle.italic),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              ),
+              Card(
+                color: AppColors.verdeSalvia,
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                margin: EdgeInsets.symmetric(vertical: 8),
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Text(
+                    '🔒 Sua denúncia é sigilosa e segura.',
+                    style: TextStyle(fontSize: 16, color: AppColors.azulProfundo),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
               ),
               SizedBox(height: 32),
               CustomButton(
@@ -53,9 +84,25 @@ class HomeScreen extends StatelessWidget {
                 outlined: true,
                 onPressed: () => _abrirApoio(context),
               ),
+              SizedBox(height: 24),
+              // Selo de anonimato
+              Chip(
+                label: Text('Denúncia 100% anônima', style: TextStyle(color: Colors.white)),
+                backgroundColor: AppColors.azulProfundo,
+                avatar: Icon(Icons.visibility_off, color: Colors.white),
+              ),
             ],
           ),
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: AppColors.rosaClaro,
+        child: Icon(Icons.exit_to_app, color: AppColors.azulProfundo),
+        tooltip: 'Botão de pânico: sair rapidamente',
+        onPressed: () {
+          // Redireciona para Google ou fecha o app
+          // Exemplo: launchUrl(Uri.parse('https://www.google.com'));
+        },
       ),
     );
   }

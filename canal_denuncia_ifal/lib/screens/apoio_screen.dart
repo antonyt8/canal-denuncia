@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
+
 
 class ApoioScreen extends StatelessWidget {
   @override
@@ -27,12 +29,28 @@ class ApoioScreen extends StatelessWidget {
               leading: Icon(Icons.phone, color: Colors.green),
               title: Text('CVV - Centro de Valorização da Vida'),
               subtitle: Text('Ligue 188 ou acesse cvv.org.br'),
+              onTap: () async {
+                final Uri url = Uri.parse('https://www.cvv.org.br');
+                if (await canLaunchUrl(url)) {
+                  await launchUrl(url, mode: LaunchMode.externalApplication);
+                } else {
+                  throw 'Não foi possível abrir $url';
+                }
+              },
             ),
+
             ListTile(
               leading: Icon(Icons.school, color: Colors.blue),
               title: Text('Setor Psicossocial IFAL'),
-              subtitle: Text('Procure a equipe de apoio do seu campus.'),
+              subtitle: Text(
+                'Procure a equipe de apoio do seu campus.\n'
+                'Localizado no prédio do DAE.\n'
+                'Segunda a Sexta-feira, das 7h às 13h.\n'
+                'Contato: (82) 2126-6202\n'
+                'Email: dae.psicologia.maceio@ifal.edu.br',
+              ),
             ),
+
             ListTile(
               leading: Icon(Icons.web, color: Colors.purple),
               title: Text('Saiba mais sobre cyberbullying'),

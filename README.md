@@ -6,8 +6,9 @@ Este repositório contém o backend (Django + DRF + PostgreSQL) e o frontend (Fl
 
 ## Estrutura do Projeto
 
-- `ifal_denuncia/` — Backend Django (API REST, PostgreSQL, criptografia, admin)
+- `ifal_denuncia/` — Projeto principal do backend Django (configurações, URLs, WSGI, etc)
 - `canal_denuncia_ifal/` — Frontend Flutter (web, Android, iOS)
+- `denuncias/` — App Django responsável pela lógica de denúncias: modelos, API REST, criptografia dos dados, validações, admin, testes e rotas relacionadas às denúncias anônimas. Toda denúncia feita pelo app ou web é registrada e tratada por aqui.
 
 ## Tecnologias
 - **Backend:** Python, Django, Django REST Framework, PostgreSQL, django-encrypted-model-fields, django-cors-headers
@@ -39,6 +40,9 @@ flutter run -d chrome  # ou -d linux/android/ios
 - Altere o endpoint da API em `lib/services/denuncia_service.dart` para o IP do backend se necessário.
 
 ## Observações importantes
+
+- O formulário de denúncia agora aceita campos detalhados: localização, data do ocorrido, meio utilizado, consequências, sugestões/pedidos de apoio e opção de solicitar apoio psicossocial.
+- O backend Django está preparado para receber e armazenar todos esses campos, mantendo a segurança e o anonimato.
 - **NÃO suba chaves secretas, senhas ou FIELD_ENCRYPTION_KEY no GitHub!**
 - Configure variáveis sensíveis via variáveis de ambiente.
 - Para evitar subir submódulos, sempre crie o repositório na raiz do projeto e adicione as pastas normalmente.

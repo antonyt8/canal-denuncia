@@ -19,6 +19,7 @@ from django.urls import path, include
 from rest_framework import permissions
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
+from django.http import HttpResponse
 
 schema_view = get_schema_view(
    openapi.Info(
@@ -30,7 +31,21 @@ schema_view = get_schema_view(
    permission_classes=(permissions.AllowAny,),
 )
 
+def home(request):
+    return HttpResponse("""
+        <h1>Canal de Denúncia IFAL</h1>
+        <p>Bem-vindo à API do Sistema de Denúncia Anônima e Suporte Psicossocial do IFAL.</p>
+        <ul>
+            <li><a href='/admin/'>Administração</a></li>
+            <li><a href='/api/denuncias/'>API de Denúncias</a></li>
+            <li><a href='/swagger/'>Documentação Swagger</a></li>
+            <li><a href='/redoc/'>Documentação Redoc</a></li>
+        </ul>
+        <p>Desenvolvido para promover um ambiente acadêmico mais seguro e acolhedor.</p>
+    """)
+
 urlpatterns = [
+    path('', home),
     path('admin/', admin.site.urls),
     path('api/', include('denuncias.urls')),
 ]

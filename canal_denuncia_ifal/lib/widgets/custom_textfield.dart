@@ -6,6 +6,7 @@ class CustomTextField extends StatelessWidget {
   final int maxLines;
   final FormFieldValidator<String>? validator;
   final FormFieldSetter<String>? onSaved;
+  final TextEditingController? controller;
 
   const CustomTextField({
     required this.label,
@@ -13,6 +14,7 @@ class CustomTextField extends StatelessWidget {
     this.maxLines = 1,
     this.validator,
     this.onSaved,
+    this.controller,
     super.key,
   });
 
@@ -29,6 +31,7 @@ class CustomTextField extends StatelessWidget {
       maxLines: maxLines,
       validator: validator,
       onSaved: onSaved,
+      controller: controller,
     );
   }
 } 

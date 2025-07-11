@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -25,7 +26,7 @@ SECRET_KEY = 'django-insecure-x5f+ke7)%=kd)#xbszthur5f@ur6#ul5**13x50z$-ik051p%7
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['0.0.0.0', 'localhost', '127.0.0.1']
 
 
 # Application definition
@@ -40,9 +41,11 @@ INSTALLED_APPS = [
     'rest_framework',
     'denuncias',
     'drf_yasg',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -129,3 +132,32 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 FIELD_ENCRYPTION_KEY = 'N4c1etWiTwWgJ0WlLiyT4IfIdqunXOsQ4kZj3e+/Qo8='
+
+# CORS seguro para produção
+# Para desenvolvimento local, permite qualquer origem (não usar em produção)
+CORS_ALLOW_ALL_ORIGINS = True
+
+# Proteção de variáveis sensíveis
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', SECRET_KEY)
+FIELD_ENCRYPTION_KEY = os.environ.get('FIELD_ENCRYPTION_KEY', FIELD_ENCRYPTION_KEY)
+DATABASES['default']['PASSWORD'] = os.environ.get('POSTGRES_PASSWORD', DATABASES['default']['PASSWORD'])
+
+# Configuração de logs de auditoria
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'file': {
+            'level': 'INFO',
+            'class': 'logging.FileHandler',
+            'filename': os.path.join(BASE_DIR, 'audit.log'),
+        },
+    },
+    'loggers': {
+        'denuncias': {
+            'handlers': ['file'],
+            'level': 'INFO',
+            'propagate': True,
+        },
+    },
+}

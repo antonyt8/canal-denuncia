@@ -10,6 +10,12 @@ class Denuncia(models.Model):
     data_envio = models.DateTimeField(auto_now_add=True)
     status = models.CharField(max_length=30, default='novo')
     codigo_acomp = models.CharField(max_length=12, blank=True, null=True)
+    localizacao = EncryptedTextField(blank=True, null=True)
+    data_ocorrido = models.DateField(blank=True, null=True)
+    meio = models.CharField(max_length=100, blank=True, null=True)
+    consequencias = EncryptedTextField(blank=True, null=True)
+    sugestoes = EncryptedTextField(blank=True, null=True)
+    deseja_apoio = models.BooleanField(default=False)
 
     def __str__(self):
         return f"Denúncia {self.id} - {self.tipo}"
