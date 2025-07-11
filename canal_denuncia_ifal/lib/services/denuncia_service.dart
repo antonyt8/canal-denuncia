@@ -13,7 +13,7 @@ class DenunciaService {
     String sugestoes = '',
     bool desejaApoio = false,
   }) async {
-    final url = Uri.parse('http://localhost:8000/api/denuncias/');
+    final url = Uri.parse('http://10.1.66.88:8000/api/denuncias/');
     final response = await http.post(
       url,
       headers: {'Content-Type': 'application/json'},
@@ -29,6 +29,12 @@ class DenunciaService {
         'deseja_apoio': desejaApoio,
       }),
     );
-    return response.statusCode == 201;
+    if (response.statusCode == 201) {
+      return true;
+    } else {
+      print('Erro ao enviar denúncia: ${response.statusCode}');
+      print('Resposta do backend: ${response.body}');
+      return false;
+    }
   }
 } 
